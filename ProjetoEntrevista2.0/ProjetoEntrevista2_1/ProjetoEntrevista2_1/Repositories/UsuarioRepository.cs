@@ -11,6 +11,7 @@ namespace ProjetoEntrevista2_1.Repositories
     {
         private string StringConexao = "Data Source=DESKTOP-CQTIV89\\SQLEXPRESS; initial catalog=Entrevista; user id=sa; pwd=sa@132;";
 
+
         public List<UsuarioDomain>Listar()
         {
             List<UsuarioDomain> Usuarios = new List<UsuarioDomain>();
@@ -42,7 +43,7 @@ namespace ProjetoEntrevista2_1.Repositories
                             IdUsuario = Convert.ToInt32(rdr["IdUsuario"]),
                             IdTipoUsuario = Convert.ToInt32(rdr["IdTipoUsuario"].ToString()),
                             NomeUsuario = rdr["NomeUsuario"].ToString(),
-                            NumeroDocumento = Convert.ToDecimal(rdr["NumeroDocumento"]),
+                            NumeroDocumento = rdr["NumeroDocumento"].ToString(),
                             Telefone = Convert.ToInt32(rdr["Telefone"])
                         };
                         Usuarios.Add(Usuario);
@@ -51,7 +52,7 @@ namespace ProjetoEntrevista2_1.Repositories
             }
             return Usuarios;
         }
-        public UsuarioDomain BuscarPorDocumento(int documento)
+        public UsuarioDomain BuscarPorDocumento(string documento)
         {
             // string QuerySelect = "SELECT IdFuncionario, Nome, Sobrenome FROM Funcionarios WHERE IdFuncionario = @IdFuncionario";
             string QuerySelect = "SELECT * FROM Usuario WHERE NumeroDocumento = @NumeroDocumento";
@@ -75,7 +76,7 @@ namespace ProjetoEntrevista2_1.Repositories
                                 IdUsuario = Convert.ToInt32(sdr["IdUsuario"]),
                                 IdTipoUsuario = Convert.ToInt32(sdr["IdTipoUsuario"].ToString()),
                                 NomeUsuario = sdr["NomeUsuario"].ToString(),
-                                NumeroDocumento = Convert.ToDecimal(sdr["NumeroDocumento"]),
+                                NumeroDocumento = sdr["NumeroDocumento"].ToString(),
                                 Telefone = Convert.ToInt32(sdr["Telefone"])
                             };
                             return Usuario;
@@ -126,7 +127,7 @@ namespace ProjetoEntrevista2_1.Repositories
             }
         }
 
-        public void Deletar(int documento)
+        public void Deletar(string documento)
         {
             string QueryDelete = "DELETE FROM Usuario WHERE NumeroDocumento = @NumeroDocumento";
             using (SqlConnection con = new SqlConnection(StringConexao))
@@ -153,7 +154,7 @@ namespace ProjetoEntrevista2_1.Repositories
             {
                 //Declara a instrução a ser executada
                 // string QueryaSerExecutada = "SELECT IdFuncionario, Nome, Sobrenome FROM Funcionarios";
-                string QueryaSerExecutada = "SELECT * FROM Usuario WHERE NomeUsuario LIKE '%' + @NomeUsuario + '%'";
+                string QueryaSerExecutada = "SELECT * FROM Usuario WHERE NomeUsuario LIKE '%' + '@NomeUsuario' + '%'";
                 //Abre o banco de dados
                 con.Open();
                 //Declaro um SqlDataReader para percorrer a lista
@@ -174,7 +175,7 @@ namespace ProjetoEntrevista2_1.Repositories
                             IdUsuario = Convert.ToInt32(rdr["IdUsuario"]),
                             IdTipoUsuario = Convert.ToInt32(rdr["IdTipoUsuario"].ToString()),
                             NomeUsuario = rdr["NomeUsuario"].ToString(),
-                            NumeroDocumento = Convert.ToDecimal(rdr["NumeroDocumento"]),
+                            NumeroDocumento = rdr["NumeroDocumento"].ToString(),
                             Telefone = Convert.ToInt32(rdr["Telefone"])
                         };
 

@@ -10,7 +10,7 @@ namespace ProjetoEntrevista2_1.Domains
         public int IdUsuario{ get; set; }
         public int IdTipoUsuario { get; set; }
         public string NomeUsuario { get; set; }
-        public decimal NumeroDocumento { get; set; }
+        public string NumeroDocumento { get; set; }
         public int Telefone { get; set; }
     }
 }

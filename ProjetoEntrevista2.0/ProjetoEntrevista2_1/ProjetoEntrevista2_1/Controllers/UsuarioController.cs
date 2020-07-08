@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using ProjetoEntrevista2_1.Domains;
 using ProjetoEntrevista2_1.Repositories;
 
@@ -16,15 +17,17 @@ namespace ProjetoEntrevista2_1.Controllers
     {
         UsuarioRepository UsuarioRepository = new UsuarioRepository();
 
-        [HttpGet]
+        
+[HttpGet]
         public IActionResult Listar()
         {
             return Ok(UsuarioRepository.Listar());
         }
 
         [HttpGet("{documento}")]
-        public IActionResult BuscarPorDocumento(int documento)
+        public IActionResult BuscarPorDocumento(string documento)
         {
+            
             UsuarioDomain UsuarioDomain = UsuarioRepository.BuscarPorDocumento(documento);
             if (UsuarioDomain == null)
                 return NotFound();
@@ -39,7 +42,7 @@ namespace ProjetoEntrevista2_1.Controllers
         }
 
         [HttpPut("{documento}")]
-        public IActionResult Atualizar(int documento, UsuarioDomain Usuario)
+        public IActionResult Atualizar(string documento, UsuarioDomain Usuario)
         {
             Usuario.NumeroDocumento = documento;
             UsuarioRepository.Alterar(Usuario);
@@ -47,7 +50,7 @@ namespace ProjetoEntrevista2_1.Controllers
         }
 
         [HttpDelete("{documento}")]
-        public IActionResult Deletar(int documento)
+        public IActionResult Deletar(string documento)
         {
             UsuarioRepository.Deletar(documento);
             return Ok();

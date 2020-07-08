@@ -24,11 +24,11 @@
         <div class="col-md-4">
           <div class="radio">
             <label>
-              <input type="radio" name="hosting" value="yes" tabindex="2" required/> Pj
+              <input type="radio" id="pj" name="hosting" value="yes" tabindex="2" required/> Pj
             </label>
           </div>
           <div class="radio">
-            <input type="radio" name="hosting" value="no" tabindex="3" required/> Pf
+            <input type="radio" id="pf" name="hosting" value="no" tabindex="3" required/> Pf
             </label>
           </div>
         </div>
@@ -36,10 +36,10 @@
 
       <!-- Text area -->
       <fieldset>
-        <input placeholder="Digite seu cnpj" id="cnpj" class="inativo" disabled tabindex="5" type="text"    required></input>
+        <input placeholder="Digite seu cnpj" id="cnpj"  tabindex="5" type="text"    required></input>
       </fieldset>
       <fieldset>
-        <input type="text" id="cpf" placeholder="Digite seu cpf" maxlength="14" autocomplete="off" onkeyup="maskCpf(this)">
+        <input type="text" id="cpf" placeholder="Digite seu cpf" maxlength="14" autocomplete="off" >
       </fieldset>
       <fieldset>
         <input placeholder="Digite seu telefone" tabindex="6" type="tel" required></input>
@@ -54,8 +54,42 @@
 
   </div>
 
-  <script src="/funcoes.js">
+  <script src="https://unpkg.com/imask">
   </script>
+<script>
+
+   var element = document.getElementById('cpf');
+var maskOptions = {
+  mask: '000.000.000-00'
+};
+var mask = IMask(element, maskOptions);
+
+var element = document.getElementById('cnpj');
+var maskOptions = {
+  mask: '00.000.000/0000-00'
+};
+var mask = IMask(element, maskOptions);
+
+var mask = IMask(element, maskOptions);
+		var pj = document.getElementById("cnpj");
+		var pf = document.getElementById("cpf");
+
+		document.getElementById("pf").addEventListener("click", function(event) {
+			pj.setAttribute("disabled", "disabled");
+			pf.removeAttribute("disabled");
+			pj.value = "";
+			pj.classList.add('inativo');
+			pf.classList.remove('inativo');
+		});
+
+		document.getElementById("pj").addEventListener("click", function(event) {
+			pf.setAttribute("disabled", "disabled");
+			pj.removeAttribute("disabled");
+			pf.value = "";
+			pf.classList.add('inativo', 'inativo2', 'obrigatorio');
+			pj.classList.remove('inativo');
+		});
+</script>
 </body>
 
 </html>
